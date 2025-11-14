@@ -7,9 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.codegnan.dto.DoctorDTO;
 import com.codegnan.exceptions.InvalidDoctorIdException;
-import com.codegnan.mapper.DoctorMapper;
 import com.codegnan.model.Doctor;
 import com.codegnan.repository.DoctorRepository;
 
@@ -20,10 +18,7 @@ public class DoctorServiceImpl implements DoctorService {
 	
 	@Autowired
 	private DoctorRepository repo;
-	
-	@Autowired
-	private DoctorMapper mapper;
-	
+		
 	
 	@Override
 	public Doctor save(Doctor doctor) {
@@ -33,29 +28,29 @@ public class DoctorServiceImpl implements DoctorService {
 	}
 
 	@Override
-	public DoctorDTO findDoctor(Long id) throws InvalidDoctorIdException {
+	public Doctor findDoctor(Long id) throws InvalidDoctorIdException {
 		log.info("Requested Id :: {}"+id);
 		Doctor doctor=repo.findById(id).orElseThrow(()->
 		new InvalidDoctorIdException("Requested Doctor with Id "+id+"not Found"));
 		log.info("Doctor Retrieval Successful::{}",doctor.getName());
-		return mapper.toDto(doctor);
+		return doctor;
 	}
 
 	@Override
-	public DoctorDTO updateDoctor(Long id, Doctor doctor) throws InvalidDoctorIdException {
+	public Doctor updateDoctor(Long id, Doctor doctor) throws InvalidDoctorIdException {
 		Doctor doc=repo.findById(id).orElseThrow(()->
 		new InvalidDoctorIdException("Requested Doctor with Id "+id+"not Found"));
 		repo.save(doc);
-		return mapper.toDto(doc);
+		return doc;
 	}
 
 	@Override
-	public DoctorDTO deleteDoctor(Long id) throws InvalidDoctorIdException {
+	public Doctor deleteDoctor(Long id) throws InvalidDoctorIdException {
 		Doctor doc=repo.findById(id).orElseThrow(()->
 		new InvalidDoctorIdException("Requested Doctor with Id "+id+"not Found"));
 		repo.deleteById(id);
 		log.info("Doctor Data Deleted Successfully");
-		return mapper.toDto(doc);
+		return doc;
 
 	}
 

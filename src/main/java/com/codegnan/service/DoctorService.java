@@ -2,7 +2,6 @@ package com.codegnan.service;
 
 import java.util.List;
 
-import com.codegnan.dto.DoctorDTO;
 import com.codegnan.exceptions.InvalidDoctorIdException;
 import com.codegnan.model.Doctor;
 
@@ -14,11 +13,11 @@ public interface DoctorService {
 	
 	Doctor save(Doctor doctor);
 	
-	DoctorDTO findDoctor(Long id) throws InvalidDoctorIdException;
+	Doctor findDoctor(Long id) throws InvalidDoctorIdException;
 	
-	DoctorDTO updateDoctor(Long id,Doctor doctor) throws InvalidDoctorIdException;
+	Doctor updateDoctor(Long id,Doctor doctor) throws InvalidDoctorIdException;
 	
-	DoctorDTO deleteDoctor(Long id) throws InvalidDoctorIdException;
+	Doctor deleteDoctor(Long id) throws InvalidDoctorIdException;
 	
 	List<Doctor> findAllDoctors();
 }
